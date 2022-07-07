@@ -1,6 +1,8 @@
 import 'package:age/age.dart';
 import 'package:age_calculator/services/age_calculator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
 
 class Homepage extends StatefulWidget {
   @override
@@ -14,12 +16,14 @@ class _HomepageState extends State<Homepage> {
   Future<Null> _selectTodayDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: todayDate,
         firstDate: dob,
+        initialDate: todayDate,
+
         lastDate: DateTime(2101));
     if (picked != Null && picked != todayDate) {
       setState(() {
-        dob = picked!!;
+        print(picked);
+        todayDate = picked!;
       });
     }
   }
@@ -33,7 +37,7 @@ class _HomepageState extends State<Homepage> {
     );
     if (picked != Null && picked != todayDate) {
       setState(() {
-        todayDate = picked!!;
+        dob = picked!;
       });
     }
   }
@@ -42,7 +46,14 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     _ageDuration = AgeCalculator().calculateAge(todayDate, dob);
+    print("----------------------------------");
+    print(_ageDuration.years);
   }
+
+  // debugPrint("Message");
+  // print(_ageDuration.years);
+
+      // developer.log("message");
 
   List<String> _months = [
     "months",
@@ -73,7 +84,7 @@ class _HomepageState extends State<Homepage> {
                 width: double.maxFinite,
               ),
               Text(
-                "AGE CALCULATER",
+                "AGE CALCULATOR",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 28,
@@ -200,6 +211,8 @@ class _HomepageState extends State<Homepage> {
                                 children: [
                                   Text(
                                     "${_ageDuration.years}",
+
+
                                     style: TextStyle(
                                       color: Color(0xffCDDC39),
                                       fontSize: 76,
